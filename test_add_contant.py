@@ -27,10 +27,8 @@ class AddContact(unittest.TestCase):
     def open_add_contant_page(self, wd):
         wd.find_element_by_link_text("add new").click()
 
-    def create_contant(self, wd, firstname="ggg", middlename="fgh", lastname="dfg", nickname="rgrgrg", title="dfgd",
-                       company="erferfer", address="dfgdgdd", home="dfgdfg", mobile="dgdgdgd", work="dgdgdg",
-                       fax="dfgdgdf", email="dfgvdfgfd", email2="dfgdgfgd", email3="dgdgd", homepage="dgdgdg", bday="10", bmonth="September",
-                       byear="111", ayear="1111", aday="15", amonth="August"):
+    def create_contant(self, wd, firstname, middlename, lastname, nickname, title, company, address, home, mobile, work,
+                       fax, email, email2, email3, homepage, bday, bmonth, byear, ayear, amonth, aday):
         # fill firstaname
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
@@ -127,9 +125,11 @@ class AddContact(unittest.TestCase):
     def test_add_contact(self):
         wd = self.wd
         self.open_home_page(wd)
-        self.login(wd, "admin", "secret")
+        self.login(wd, username="admin", password="secret")
         self.open_add_contant_page(wd)
-        self.create_contant(wd)
+        self.create_contant(wd, firstname="ggg", middlename="fgh",lastname="dfg", nickname="rgrgrg", title="dfgd", company="erferfer", address="dfgdgdd", home="dfgdfg", mobile="dgdgdgd",
+                                work="dgdgdg", fax="dfgdgdf", email="dfgvdfgfd", email2="dfgdgfgd", email3="dgdgd", homepage="dgdgdg", bday="10", bmonth="September", byear="111",
+                            aday="1111", amonth="August", ayear="15")
         self.return_to_home_page(wd)
         self.logout(wd)
 
