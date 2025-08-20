@@ -11,10 +11,11 @@ class AddContact(unittest.TestCase):
         firefox_options.binary_location = firefox_binary_path
         self.wd = webdriver.Firefox(options=firefox_options)
         self.wd.implicitly_wait(30)
-    
-    def test_add_contact(self):
-        wd = self.wd
+
+    def open_home_page(self, wd):
         wd.get("http://localhost/addressbook/addressbook/")
+
+    def login(self, wd):
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys("admin")
@@ -22,7 +23,11 @@ class AddContact(unittest.TestCase):
         wd.find_element_by_name("pass").clear()
         wd.find_element_by_name("pass").send_keys("secret")
         wd.find_element_by_xpath("//input[@value='Login']").click()
+
+    def open_add_contant_page(self, wd):
         wd.find_element_by_link_text("add new").click()
+
+    def create_contant(self, wd):
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys("ggg")
@@ -83,10 +88,22 @@ class AddContact(unittest.TestCase):
         wd.find_element_by_xpath("//div[@id='content']/form/select[4]/option[9]").click()
         wd.find_element_by_xpath("//div[@id='content']/form/input[20]").click()
         wd.find_element_by_id("header").click()
-        wd.find_element_by_link_text("home").click()
+
+    def logout(self, wd):
         wd.find_element_by_link_text("Logout").click()
 
-    
+    def return_to_home_page(self, wd):
+        wd.find_element_by_link_text("home").click()
+
+    def test_add_contact(self):
+        wd = self.wd
+        self.open_home_page(wd)
+        self.login(wd)
+        self.open_add_contant_page(wd)
+        self.create_contant(wd)
+        self.return_to_home_page(wd)
+        self.logout(wd)
+
     def tearDown(self):
         self.wd.quit()
 
