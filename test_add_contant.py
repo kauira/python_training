@@ -29,8 +29,8 @@ class AddContact(unittest.TestCase):
 
     def create_contant(self, wd, firstname="ggg", middlename="fgh", lastname="dfg", nickname="rgrgrg", title="dfgd",
                        company="erferfer", address="dfgdgdd", home="dfgdfg", mobile="dgdgdgd", work="dgdgdg",
-                       fax="dfgdgdf", email="dfgvdfgfd", email2="dfgdgfgd", email3="dgdgd", homepage="dgdgdg", bday="10",
-                       byear="111", ayear="1111"):
+                       fax="dfgdgdf", email="dfgvdfgfd", email2="dfgdgfgd", email3="dgdgd", homepage="dgdgdg", bday="10", bmonth="September",
+                       byear="111", ayear="1111", aday="15", amonth="August"):
         # fill firstaname
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
@@ -94,23 +94,23 @@ class AddContact(unittest.TestCase):
         # select birthday
         wd.find_element_by_name("bday").click()
         Select(wd.find_element_by_name("bday")).select_by_visible_text(bday)
-        wd.find_element_by_xpath("//option[@value='10']").click()
+        wd.find_element_by_xpath(f"//option[@value='{bday}']").click()
         # select birthmonth
         wd.find_element_by_name("bmonth").click()
-        Select(wd.find_element_by_name("bmonth")).select_by_visible_text("September")
-        wd.find_element_by_xpath("//option[@value='September']").click()
+        Select(wd.find_element_by_name("bmonth")).select_by_visible_text(bmonth)
+        wd.find_element_by_xpath(f"//option[@value='{bmonth}']").click()
         # fill birthyear
         wd.find_element_by_name("byear").click()
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys(byear)
         # select anniversary day
         wd.find_element_by_name("aday").click()
-        Select(wd.find_element_by_name("aday")).select_by_visible_text("15")
-        wd.find_element_by_xpath("//div[@id='content']/form/select[3]/option[17]").click()
+        Select(wd.find_element_by_name("aday")).select_by_visible_text(aday)
+        wd.find_element_by_css_selector(f"select[name=\"aday\"] > option[value=\"{aday}\"]").click()
         # select anniversary month
         wd.find_element_by_name("amonth").click()
-        Select(wd.find_element_by_name("amonth")).select_by_visible_text("August")
-        wd.find_element_by_xpath("//div[@id='content']/form/select[4]/option[9]").click()
+        Select(wd.find_element_by_name("amonth")).select_by_visible_text(amonth)
+        wd.find_element_by_css_selector(f"select[name=\"amonth\"] > option[value=\"{amonth}\"]").click()
         # fill anniversary year
         wd.find_element_by_name("ayear").click()
         wd.find_element_by_name("ayear").clear()
