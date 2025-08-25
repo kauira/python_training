@@ -108,6 +108,14 @@ class ContactHelper:
         wd.find_element_by_css_selector("[value='Delete']").click()
         self.return_to_home_page()
 
+    def delete_all_contacts(self):
+        wd = self.app.wd
+        # select all contacts
+        wd.find_element_by_css_selector("#MassCB").click()
+        # submit deletion
+        wd.find_element_by_css_selector("[value='Delete']").click()
+        self.return_to_home_page()
+
     def return_to_home_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
