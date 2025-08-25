@@ -1,4 +1,4 @@
-class Contant:
+class Contact:
 
     def __init__(self, firstname, middlename, lastname, nickname, title, company, address, home, mobile, work, fax, email, email2, email3, homepage, bday, bmonth, byear,  aday, ayear, amonth):
        self.firstname = firstname
@@ -19,6 +19,7 @@ class Contant:
        self.bday = bday
        self.bmonth = bmonth
        self.byear = byear
-       self.aday = ayear
+       self.aday = aday
        self.amonth = amonth
-       self.ayear = aday
+       self.ayear = ayear
+
