@@ -3,7 +3,7 @@ def test_delete_first_contact(app):
     app.contact.delete_first_contact()
     app.session.logout()
 
-def test_delete_all_contacts(app):
-    app.session.login( username="admin", password="secret")
-    app.contact.delete_all_contacts()
-    app.session.logout()
+def test_delete_contact_from_edit_page(app):
+   app.session.login( username="admin", password="secret")
+   app.contact.edit_delete_contact_from_edit_page()
+   app.session.logout()

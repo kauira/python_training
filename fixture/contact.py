@@ -209,6 +209,14 @@ class ContactHelper:
         wd.find_element_by_css_selector("[value='Update']").click()
         self.return_to_home_page()
 
+    def edit_delete_contact_from_edit_page(self):
+        wd = self.app.wd
+        # init contact edition
+        wd.find_element_by_css_selector("[title='Edit']").click()
+        # click on delete button
+        wd.find_element_by_css_selector("[value='Delete']").click()
+        self.return_to_home_page()
+
     def return_to_home_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
