@@ -1,5 +1,6 @@
 from _pytest.main import Session
 from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.firefox.options import Options
 from fixture.contact import ContactHelper
 from fixture.session import SessionHelper
@@ -17,9 +18,17 @@ class Application:
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)
 
+    def is_valid(self):
+        try:
+            self.wd.current_url()
+            return True
+        except:
+            return False
+
     def open_home_page(self):
         wd = self.wd
         wd.get("http://localhost/addressbook/addressbook/")
 
     def destroy(self):
         self.wd.quit()
+

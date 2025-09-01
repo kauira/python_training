@@ -7,19 +7,18 @@ class GroupHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("groups").click()
 
-    def create(self, group):
+    def create_group(self, group):
         wd = self.app.wd
         # init group creation
         self.open_groups_page()
-        wd.find_element_by_id("content").click()
-        wd.find_element_by_xpath("//form[@action='/addressbook/addressbook/group.php']").click()
-        wd.find_element_by_xpath("//div[@id='content']/form/input[4]").click()
+        wd.find_element_by_name("new").click()
         self.fill_group_form(group)
         # submit group creation
         wd.find_element_by_name("submit").click()
         self.return_to_groups_page()
 
     def fill_group_form(self, group):
+        wd = self.app.wd
         self.change_field_value("group_name", group.name)
         self.change_field_value("group_header", group.header)
         self.change_field_value("group_footer", group.footer)
