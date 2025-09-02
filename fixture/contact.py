@@ -35,23 +35,26 @@ class ContactHelper:
 
     def change_adate_selection(self, field_name, option):
         wd = self.app.wd
-        wd.find_element_by_name(field_name).click()
-        Select(wd.find_element_by_name(field_name)).select_by_value(option)
-        wd.find_element_by_css_selector(f"select[name=\"aday\"] > option[value=\"{option}\"]").click()
+        if option is not None:
+            wd.find_element_by_name(field_name).click()
+            Select(wd.find_element_by_name(field_name)).select_by_value(option)
+            wd.find_element_by_css_selector(f"select[name=\"{field_name}\"] > option[value=\"{option}\"]").click()
 
     def change_birthdate_selection(self, field_name, option):
         wd = self.app.wd
-        wd.find_element_by_name(field_name).click()
-        Select(wd.find_element_by_name(field_name)).select_by_value(option)
-        wd.find_element_by_xpath(f"//option[@value='{option}']").click()
+        if option is not None:
+            wd.find_element_by_name(field_name).click()
+            Select(wd.find_element_by_name(field_name)).select_by_value(option)
+            wd.find_element_by_xpath(f"//option[@value='{option}']").click()
 
     def change_field_value(self, field_name, text):
         wd = self.app.wd
-        wd.find_element_by_name(field_name).click()
-        wd.find_element_by_name(field_name).clear()
-        wd.find_element_by_name(field_name).send_keys(text)
+        if text is not None:
+            wd.find_element_by_name(field_name).click()
+            wd.find_element_by_name(field_name).clear()
+            wd.find_element_by_name(field_name).send_keys(text)
 
-    def create(self, contact):
+    def create_contact(self, contact):
         wd = self.app.wd
         self.open_add_contant_page()
         self.fill_contact_form(contact)
@@ -77,21 +80,22 @@ class ContactHelper:
         wd.find_element_by_css_selector("[value='Delete']").click()
         self.return_to_home_page()
 
-    def edit_contact_form(self, contact):
+    def edit_contact_form(self, new_contact_data):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
-        # init contact edition
-        wd.find_element_by_css_selector("[title='Edit']").click()
-        self.fill_contact_form(contact)
-        # update contact
+        self.select_first_contact()
+        self.fill_contact_form(new_contact_data)
         wd.find_element_by_css_selector("[value='Update']").click()
         self.return_to_home_page()
+
+    def select_first_contact(self):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("[title='Edit']").click()
 
     def delete_contact_from_edit_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
-        # init contact edition
-        wd.find_element_by_css_selector("[title='Edit']").click()
+        self.select_first_contact()
         # click on delete button
         wd.find_element_by_css_selector("[value='Delete']").click()
         self.return_to_home_page()
@@ -100,3 +104,7 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
 
+    def count(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("home").click()
+        return len(wd.find_elements_by_name("selected[]"))
