@@ -1,7 +1,7 @@
 import re
 from random import randrange
 
-def test_phones_on_homepage(app):
+def test_contact_info_on_homepage(app):
     all_contacts = app.contact.get_contact_list()
     index = randrange(len(all_contacts))
     contact_from_homepage = all_contacts[index]
@@ -29,8 +29,5 @@ def merge_phones_like_on_homepage(contact):
                                 [contact.home, contact.work, contact.mobile]))))
 
 def merge_emails_like_on_homepage(contact):
-    return "\n".join(filter(lambda x: x != "",
-                     map(lambda x: clear(x),
-                         filter(lambda x: x is not None,
-                                [contact.email, contact.email2, contact.email3]))))
+    return "\n".join(filter(lambda x: x != "", filter(lambda x: x is not None,[contact.email, contact.email2, contact.email3])))
 
