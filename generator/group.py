@@ -23,7 +23,7 @@ for o, a in opts:
 
 
 def random_srting(prefix, maxlen):
-    symbols = string.ascii_letters + string.digits + string.punctuation + " "*10
+    symbols = string.ascii_letters + string.digits
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 testdata = [Group(name="", header="", footer="")] +[

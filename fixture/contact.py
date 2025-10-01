@@ -1,6 +1,9 @@
 import re
+import time
+
 from selenium.webdriver.support.ui import Select
 from model.contact import Contact
+
 class ContactHelper:
 
     def __init__(self, app):
@@ -78,6 +81,19 @@ class ContactHelper:
         self.return_to_home_page()
         self.contact_cache = None
 
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        self.open_home_page()
+        self.select_contact_by_id(id)
+        wd.find_element_by_css_selector("[value='Delete']").click()
+        self.return_to_home_page()
+        self.contact_cache = None
+
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector('a[href="edit.php?id=%s"]' % id).click()
+
+
     def delete_all_contacts(self):
         wd = self.app.wd
         self.open_home_page()
@@ -92,6 +108,15 @@ class ContactHelper:
         wd = self.app.wd
         self.open_home_page()
         self.select_contact_by_index(index)
+        self.fill_contact_form(new_contact_data)
+        wd.find_element_by_css_selector("[value='Update']").click()
+        self.return_to_home_page()
+        self.contact_cache = None
+
+    def edit_contact_by_id(self, id, new_contact_data):
+        wd = self.app.wd
+        self.open_home_page()
+        self.select_contact_by_id(id)
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_css_selector("[value='Update']").click()
         self.return_to_home_page()
