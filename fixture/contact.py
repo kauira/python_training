@@ -90,18 +90,19 @@ class ContactHelper:
 
     def delete_contact_from_group_by_id(self, id_contact, id_group, group_name):
         wd = self.app.wd
-        self.open_group_page(id_group, group_name)
-        self.select_conta
 
-
-
-        ct_by_id(id_contact)
-        wd.find_element_by_name("remove").click()
-        self.return_to_group_page(group_name, id_group)
 
     def select_contact_to_edit_by_id(self, id_contact):
         wd = self.app.wd
         wd.find_element_by_css_selector('a[href="edit.php?id=%s"]' % id_contact).click()
+
+    def select_all_groups(self):
+        wd = self.app.wd
+        wd.find_element_by_name("group").click()
+        select_element = wd.find_element_by_name("group")
+        group_select = Select(select_element)
+        group_select.select_by_value("")
+        wd.find_element_by_css_selector("select[name='group'] option[value='']").click()
 
     def select_contact_by_id(self, id_contact):
         wd = self.app.wd
@@ -243,11 +244,12 @@ class ContactHelper:
         group_select = Select(select_element)
         group_select.select_by_value(id_group)
         wd.find_element_by_css_selector("select[name='group'] option[value='%s']" % id_group).click()
-
+        self.contact_cache = None
 
     def add_contact_to_group(self, id_contact, id_group):
         wd = self.app.wd
         self.open_home_page()
+        self.select_all_groups()
         self.select_contact_by_id(id_contact)
         self.select_group_to_add(id_group)
         wd.find_element_by_name("add").click()
@@ -274,6 +276,8 @@ class ContactHelper:
     def remove_contact_from_group(self, id_contact, id_group, group_name):
         wd = self.app.wd
         self.open_group_page(id_group, group_name)
-        self.delete_contact_from_group_by_id(id_contact, id_group, group_name)
+        self.select_contact_by_id(id_contact)
+        wd.find_element_by_name("remove").click()
+        self.return_to_group_page(group_name, id_group)
 
 
