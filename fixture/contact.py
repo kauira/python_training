@@ -1,6 +1,5 @@
 import re
 import time
-
 from selenium.webdriver.support.ui import Select
 from model.contact import Contact
 
@@ -89,10 +88,24 @@ class ContactHelper:
         self.return_to_home_page()
         self.contact_cache = None
 
-    def select_contact_by_id(self, id):
+    def delete_contact_from_group_by_id(self, id_contact, id_group, group_name):
         wd = self.app.wd
-        wd.find_element_by_css_selector('a[href="edit.php?id=%s"]' % id).click()
+        self.open_group_page(id_group, group_name)
+        self.select_conta
 
+
+
+        ct_by_id(id_contact)
+        wd.find_element_by_name("remove").click()
+        self.return_to_group_page(group_name, id_group)
+
+    def select_contact_to_edit_by_id(self, id_contact):
+        wd = self.app.wd
+        wd.find_element_by_css_selector('a[href="edit.php?id=%s"]' % id_contact).click()
+
+    def select_contact_by_id(self, id_contact):
+        wd = self.app.wd
+        wd.find_element_by_id(id_contact).click()
 
     def delete_all_contacts(self):
         wd = self.app.wd
@@ -116,7 +129,7 @@ class ContactHelper:
     def edit_contact_by_id(self, id, new_contact_data):
         wd = self.app.wd
         self.open_home_page()
-        self.select_contact_by_id(id)
+        self.select_contact_to_edit_by_id(id)
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_css_selector("[value='Update']").click()
         self.return_to_home_page()
@@ -214,3 +227,53 @@ class ContactHelper:
         work = re.search("W: (.*)", text).group(1)
         mobile = re.search("M: (.*)", text).group(1)
         return Contact(home=home, mobile=mobile, work=work)
+
+    def select_group_to_add(self, id_group):
+        wd = self.app.wd
+        wd.find_element_by_name("to_group").click()
+        select_element = wd.find_element_by_name("to_group")
+        group_select = Select(select_element)
+        group_select.select_by_value(id_group)
+        wd.find_element_by_css_selector("select[name='to_group'] option[value='%s']" % id_group).click()
+
+    def select_group_to_watch_contacts(self, id_group):
+        wd = self.app.wd
+        wd.find_element_by_name("group").click()
+        select_element = wd.find_element_by_name("group")
+        group_select = Select(select_element)
+        group_select.select_by_value(id_group)
+        wd.find_element_by_css_selector("select[name='group'] option[value='%s']" % id_group).click()
+
+
+    def add_contact_to_group(self, id_contact, id_group):
+        wd = self.app.wd
+        self.open_home_page()
+        self.select_contact_by_id(id_contact)
+        self.select_group_to_add(id_group)
+        wd.find_element_by_name("add").click()
+        self.return_to_home_page()
+        self.contact_cache = None
+
+    def get_contacts_in_group(self, id_group):
+        self.open_home_page()
+        self.select_group_to_watch_contacts(id_group)
+        list = self.get_contact_list()
+        return list
+
+    def return_to_group_page(self, group_name, id_group):
+        wd = self.app.wd
+        self.open_group_page(id_group, group_name)
+
+    def open_group_page(self, id_group, group_name):
+        wd = self.app.wd
+        if not (wd.current_url.endswith("/addressbook/?group=%s" % id_group) and wd.find_element_by_css_selector
+            ("select[name='group'] option").text == group_name):
+            wd.get("http://localhost/addressbook/addressbook/?group=%s" % id_group)
+
+
+    def remove_contact_from_group(self, id_contact, id_group, group_name):
+        wd = self.app.wd
+        self.open_group_page(id_group, group_name)
+        self.delete_contact_from_group_by_id(id_contact, id_group, group_name)
+
+
