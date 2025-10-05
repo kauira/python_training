@@ -1,24 +1,37 @@
 import random
 from model.contact import Contact
+from model.group import Group
 from fixture.orm import ORMFixture
 
 db = ORMFixture(host='127.0.0.1',name='addressbook',user='root',password='')
 
 def test_add_contact_to_group(app):
     contacts = app.contact.get_contact_list()
-    groups = app.group.get_group_list()
+    if len(contacts) == 0:
+        app.contact.create_contact(Contact(firstname="test", lastname="test"))
+        contacts = app.contact.get_contact_list()
     contact = random.choice(contacts)
+    groups = app.group.get_group_list()
+    if len(groups) == 0:
+        app.group.create_group(Group(name="test", header="test", footer="test"))
+        groups = app.group.get_group_list()
     group = random.choice(groups)
     group_contacts = app.contact.get_contacts_in_group(group.id)
     if contact in group_contacts:
         app.contact.remove_contact_from_group(contact.id, group.id, group.name)
     app.contact.add_contact_to_group(contact.id,group.id)
-    assert sorted(group_contacts, key=Contact.id_or_max) == sorted(db.get_contacts_in_group(group), key=Contact.id_or_max)
+    assert sorted(app.contact.get_contacts_in_group(group.id), key=Contact.id_or_max) == sorted(db.get_contacts_in_group(group), key=Contact.id_or_max)
 
 def test_remove_contact_from_group(app):
     contacts = app.contact.get_contact_list()
+    if len(contacts) == 0:
+        app.contact.create_contact(Contact(firstname="test", lastname="test"))
+        contacts = app.contact.get_contact_list()
     contact = random.choice(contacts)
     groups = db.get_group_list()
+    if len(groups) == 0:
+        app.group.create_group(Group(name="test", header="test", footer="test"))
+        groups = app.group.get_group_list()
     group = random.choice(groups)
     group_contacts = app.contact.get_contacts_in_group(group.id)
     if contact not in group_contacts:
