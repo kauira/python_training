@@ -3,6 +3,7 @@ import time
 from selenium.webdriver.support.ui import Select
 from model.contact import Contact
 
+
 class ContactHelper:
 
     def __init__(self, app):
@@ -266,11 +267,13 @@ class ContactHelper:
         wd = self.app.wd
         self.open_group_page(id_group, group_name)
 
+
     def open_group_page(self, id_group, group_name):
         wd = self.app.wd
+        base_url = self.app.base_url
         if not (wd.current_url.endswith("/addressbook/?group=%s" % id_group) and wd.find_element_by_css_selector
             ("select[name='group'] option").text == group_name):
-            wd.get("http://localhost/addressbook/addressbook/?group=%s" % id_group)
+            wd.get(f"{base_url}?group={id_group}")
 
 
     def remove_contact_from_group(self, id_contact, id_group, group_name):

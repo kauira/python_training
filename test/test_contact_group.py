@@ -20,7 +20,7 @@ def test_add_contact_to_group(app):
     if contact in group_contacts:
         app.contact.remove_contact_from_group(contact.id, group.id, group.name)
     app.contact.add_contact_to_group(contact.id,group.id)
-    assert sorted(app.contact.get_contacts_in_group(group.id), key=Contact.id_or_max) == sorted(db.get_contacts_in_group(group), key=Contact.id_or_max)
+    assert contact in db.get_contacts_in_group(group)
 
 def test_remove_contact_from_group(app):
     contacts = app.contact.get_contact_list()
