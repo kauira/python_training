@@ -12,6 +12,8 @@ class Application:
             firefox_options = Options()
             firefox_binary_path = r'C:\Program Files\Mozilla Firefox\firefox.exe'
             firefox_options.binary_location = firefox_binary_path
+            options = webdriver.FirefoxOptions()
+            options.add_argument("--headless")
             self.wd = webdriver.Firefox(options=firefox_options)
         elif browser == "chrome":
             self.wd = webdriver.Chrome()
