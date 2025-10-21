@@ -1,5 +1,4 @@
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.firefox.options import Options
 from fixture.contact import ContactHelper
 from fixture.session import SessionHelper
@@ -9,10 +8,10 @@ class Application:
 
     def __init__(self, browser,base_url):
         if browser == "firefox":
-            firefox_options = Options()
-            firefox_binary_path = r'C:\Program Files\Mozilla Firefox\firefox.exe'
-            firefox_options.binary_location = firefox_binary_path
-            self.wd = webdriver.Firefox(options=firefox_options)
+            #firefox_options = Options()
+            #firefox_binary_path = r'C:\Program Files\Mozilla Firefox\firefox.exe'
+            #firefox_options.binary_location = firefox_binary_path
+            self.wd = webdriver.Firefox()
         elif browser == "chrome":
             self.wd = webdriver.Chrome()
         elif browser == "ie":
