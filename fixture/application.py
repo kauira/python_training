@@ -24,6 +24,7 @@ class Application:
         self.contact = ContactHelper(self)
         self.base_url = base_url
 
+
     def is_valid(self):
         try:
             self.wd.current_url
