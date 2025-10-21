@@ -1,6 +1,6 @@
-pytest
+pytest 8.3.5
 pytest_bdd
-selenium
+selenium 3.141.0
 jsonpickle
 PyMySQL
 mysql-connector-python-rf
