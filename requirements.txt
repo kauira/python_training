@@ -4,3 +4,4 @@ jsonpickle
 PyMySQL
 mysql-connector-python-rf
 urllib3==1.26.16
+pony==0.7.19
