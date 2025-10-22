@@ -3,3 +3,4 @@ selenium==3.141.0
 jsonpickle
 PyMySQL
 mysql-connector-python-rf
+urllib==1.26.16
