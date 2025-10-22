@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="24" time="28.810" timestamp="2025-10-22T10:23:53.573163+03:00" hostname="DESKTOP-AE4G9T6"><testcase classname="test.test_add_contant" name="test_add_contact[None:,,,,,,,,]" time="6.588" /><testcase classname="test.test_add_contant" name="test_add_contact[None:lastnameUAmyRHPom,firstnameEZnG7wd7QVGf7xSxBP,addressZBtXDWMtxlJ,home96kVPwn,workE9I9,mobileag,email26BPNeq01uOmoytWv,email2H,email3fMhkbNRJL]" time="1.065" /><testcase classname="test.test_add_contant" name="test_add_contact[None:lastnamel39ioEs,firstnameR,addresspVSnoHWC5rVF58,homeD9FmUb,workjmiHEbP8h,mobileh3x,emailMPvI6zgrF5I,email2PFk1YFtWt6,email3yYauxkEMY2V]" time="1.119" /><testcase classname="test.test_add_contant" name="test_add_contact[None:lastnamesAqTOmt,firstnamej8DacJfM,addressYKSoufQr7xK7R8z,homecETDKjthJ,worke0bd6cFBS,mobile1,emailZRU6Dv1z,email2T,email3t]" time="1.107" /><testcase classname="test.test_add_contant" name="test_add_contact[None:lastnameB,firstname8mzC3IPmJfYHSo,addressEyMtt6q,homejDqj,workm7Npn3,mobile,emailqBfWoEj,email2k2FziCWyXGaWLSSpHVO,email3M1XD]" time="1.105" /><testcase classname="test.test_add_contant" name="test_add_contact[None:lastnameAz,firstnameZp6SN0IL11,addressTvXTuWC,homejNJsRuv23YCT30mlE,work4paZ0KvP,mobilevgquUZKK,email,email2xwjQQsZsW8MkrSJsto,email3yDIxpGigeXdL2O82A7S]" time="1.152" /><testcase classname="test.test_add_group" name="test_add_group[None:,,]" time="0.624" /><testcase classname="test.test_add_group" name="test_add_group[None:name,headerlNRM1BvVk23u9,footermYUdiscdDxGM]" time="0.583" /><testcase classname="test.test_add_group" name="test_add_group[None:nameY,headerQIgtOBreKJPVP7lT,footerTMFhC]" time="0.576" /><testcase classname="test.test_add_group" name="test_add_group[None:name2,headerEfo7N,footer7k4GhZmU07aMyIjt7J]" time="0.695" /><testcase classname="test.test_add_group" name="test_add_group[None:nameJe,header2K4wO,footerPrw]" time="0.687" /><testcase classname="test.test_add_group" name="test_add_group[None:nameb9Tm,headerRLw9ZbWU95,footerpOHhfuZ0tJd]" time="0.656" /><testcase classname="test.test_contact_group" name="test_add_contact_to_group" time="2.661" /><testcase classname="test.test_contact_group" name="test_remove_contact_from_group" time="2.200" /><testcase classname="test.test_contact_info" name="test_contact_info_on_homepage" time="0.212" /><testcase classname="test.test_contact_info" name="test_phones_on_contact_view_page" time="0.196"><failure message="IndexError: list index out of range">app = &lt;fixture.application.Application object at 0x00000257C4860EE0&gt;
+db = &lt;fixture.db.DbFixture object at 0x00000257C4860E50&gt;
+
+    def test_phones_on_contact_view_page(app, db):
+&gt;       contact_from_view_page = app.contact.get_contact_from_view_page(0)
+
+test\test_contact_info.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+fixture\contact.py:226: in get_contact_from_view_page
+    self.open_contact_view_by_index(index)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;fixture.contact.ContactHelper object at 0x00000257C4875640&gt;, index = 0
+
+    def open_contact_view_by_index(self, index):
+        wd = self.app.wd
+        self.open_home_page()
+&gt;       row = wd.find_elements_by_name("entry")[index]
+E       IndexError: list index out of range
+
+fixture\contact.py:203: IndexError</failure></testcase><testcase classname="test.test_db_matches_ui" name="test_group_list" time="0.928"><failure message="assert False">app = &lt;fixture.application.Application object at 0x00000257C4860EE0&gt;
+db = &lt;fixture.db.DbFixture object at 0x00000257C4860E50&gt;
+
+    def test_group_list(app,db):
+        print(timeit(lambda: app.group.get_group_list(), number=1))
+        def clean(group):
+            return Group(id=str(group.id), name=group.name.strip())
+        print(timeit(lambda: map(clean, db.get_group_list()), number=1000))
+&gt;       assert False # sorted(ui_list, key=Group.id_or_max) == sorted(db_list, key=Group.id_or_max)
+E       assert False
+
+test\test_db_matches_ui.py:9: AssertionError</failure></testcase><testcase classname="test.test_del_all_contacts" name="test_delete_all_contacts" time="0.946" /><testcase classname="test.test_del_contact" name="test_delete_first_contact" time="0.789" /><testcase classname="test.test_del_contact" name="test_delete_contact_from_edit_page" time="0.864" /><testcase classname="test.test_del_group" name="test_delete_some_group" time="0.414" /><testcase classname="test.test_edit_contact" name="test_some_contact_form" time="1.202" /><testcase classname="test.test_edit_group" name="test_edit_group_name" time="0.688" /><testcase classname="test.test_select_contact" name="test_select_contact_by_id" time="1.556" /></testsuite></testsuites>
